@@ -5,7 +5,7 @@
         active-text-color="#ffd04b"
         background-color="#545c64"
         class="aside-container"
-        default-active="2"
+        :default-active="active"
         text-color="#fff"
         @open="handleOpen"
         @close="handleClose"
@@ -35,6 +35,8 @@ const handleSelect = (...args: any[]) => {
 }
 const menu = useMenuStore()
 const isCollapse = computed(() => menu.isCollapse)
+
+const active = computed(() => menu.menuActive)
 </script>
   
 

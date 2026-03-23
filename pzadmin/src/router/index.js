@@ -6,12 +6,14 @@ import Order from '../views/vppz/order/index.vue'
 import Staff from '../views/vppz/staff/index.vue'
 import Dashboard from '../views/dashboard/index.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { useMenuStore } from '@/store/useMenuStore'
 
 const routes = [
     {
         path: '/',
         component: Layout,
         name: 'main',
+
         children: [
             {
               path: 'dashboard',
@@ -63,6 +65,20 @@ const routes = [
 const router = createRouter({
     routes,
     history: createWebHashHistory()
+})
+
+router.beforeEach((to, _from) => {
+    if (to.path === '/login') return true
+
+    const menuStore = useMenuStore()
+    if (to.meta && to.meta.path) {
+        const existingTab = menuStore.selectMenu.find(tab => tab.path === to.meta.path)
+        if (!existingTab) {
+            menuStore.addMenu(to.meta)
+        }
+    }
+
+    return true
 })
 
 export default router

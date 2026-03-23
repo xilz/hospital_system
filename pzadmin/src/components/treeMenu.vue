@@ -34,8 +34,10 @@ const router = useRouter()
 const props = defineProps(['menuData', 'index'])
 
 const store = useMenuStore()
+
 function handleClick(item, active) {
     store.addMenu(item.meta)
+    store.updateMenuActive?.(active
     router.push(item.meta.path)
 }
 </script>

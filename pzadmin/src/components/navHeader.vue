@@ -73,6 +73,8 @@ function closeTab(item, index) {
 }
 const handleClick = (command) => {
     if (command === 'cancel') {
+        menu.clearAllTabs() // 清除所有标签页
+
         localStorage.removeItem('pz_token')
         localStorage.removeItem('pz_userInfo')
         window.location.href = window.location.origin
