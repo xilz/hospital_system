@@ -1,8 +1,8 @@
 <template>
     <div class="panel-heading">
         <div class="panel-lead">
-            <div class="title">菜单管理</div>
-            <p class="description">菜单规则通常对应一个控制器的方法,同时菜单栏数据也从规则中获取</p>
+            <div class="title"><slot name="title"></slot></div>
+            <p class="description"><slot name="description"></slot></p>
         </div>
     </div>
 </template>

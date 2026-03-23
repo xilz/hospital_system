@@ -1,6 +1,9 @@
 <!-- 🌟 -->
 <template>
-    <PanelHead />
+    <PanelHead>
+        <template #title>菜单管理</template>
+        <template #description>菜单规则通常对应一个控制器的方法,同时菜单栏数据也从规则中获取</template>
+    </PanelHead>
     <div class="btns">
         <el-button :icon="Plus" type="primary" @click="open(null)" size="small">新增</el-button>
     </div>

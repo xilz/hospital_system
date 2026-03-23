@@ -24,7 +24,7 @@
                 <el-avatar
                     src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
                 />
-                <p class="user-name">admin</p>
+                <p class="user-name">{{ userInfo.name }}</p>
             <el-icon class="el-icon--right">
                 <arrow-down />
             </el-icon>
@@ -52,6 +52,8 @@ const collapse = () => {
 const selectMenu = computed(() => menu.selectMenu)
 const route = useRoute()
 const router = useRouter()
+
+const userInfo = JSON.parse(localStorage.getItem('pz_userInfo'))
 
 function closeTab(item, index) {
     const isActive = route.path === item.path

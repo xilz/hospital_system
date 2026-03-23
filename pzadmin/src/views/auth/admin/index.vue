@@ -1,5 +1,9 @@
 <template>
-    <PanelHead />
+    <PanelHead>
+        <template #title>管理员管理</template>
+        <template #description>管理后台用户账号和权限分配</template>
+    </PanelHead>
+
     <el-table :data="tableData.list" style="width: 100%">
         <el-table-column prop="id" label="id" />
         <el-table-column prop="name" label="昵称" />

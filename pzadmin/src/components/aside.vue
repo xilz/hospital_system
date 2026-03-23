@@ -24,14 +24,14 @@ import { useMenuStore } from '@/store/useMenuStore'
 
 const router = useRouter()
 const menuData = reactive(router.options.routes[0].children)
-const handleOpen = (key: string, keyPath: (string | number)[]) => {
-console.log(key, keyPath)
+const handleOpen = (...args: any[]) => {
+  console.log('open', args)
 }
-const handleClose = (key: string, keyPath: (string | number)[]) => {
-console.log(key, keyPath)
+const handleClose = (...args: any[]) => {
+  console.log('close', args)
 }
-const handleSelect = (key: string, keyPath: (string | number)[]) => {
-console.log('select', key, keyPath)
+const handleSelect = (...args: any[]) => {
+  console.log('select', args)
 }
 const menu = useMenuStore()
 const isCollapse = computed(() => menu.isCollapse)
