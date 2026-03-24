@@ -121,7 +121,7 @@ const loginForm = reactive({
 
 const router = useRouter()
 const store = useMenuStore()
-const routerList = computed(() => store.routerList)
+// const routerList = computed(() => store.routerList)
 
 const loginFormRef = ref()
 const onSubmit = async (formEl) => {
@@ -144,10 +144,11 @@ const onSubmit = async (formEl) => {
                         localStorage.setItem('pz_token', data.data.token)
                         localStorage.setItem('pz_userInfo', JSON.stringify(data.data.userInfo))
                         menuPermissions().then(({ data }) => {
-                            store.dynamiteMenu(data)
-                            toRaw(routerList.value).forEach(item => {
-                                router.addRoute('main', item)
-                            });
+                            // TODO: 暂时注释掉动态菜单功能
+                            // store.dynamiteMenu(data)
+                            // toRaw(routerList.value).forEach(item => {
+                            //     router.addRoute('main', item)
+                            // });
                             router.push('/')
                         })
                     }

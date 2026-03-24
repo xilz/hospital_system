@@ -37,7 +37,7 @@ const store = useMenuStore()
 
 function handleClick(item, active) {
     store.addMenu(item.meta)
-    store.updateMenuActive?.(active
+    store.updateMenuActive?.(active)
     router.push(item.meta.path)
 }
 </script>

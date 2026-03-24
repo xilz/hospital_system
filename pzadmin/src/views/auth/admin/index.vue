@@ -98,13 +98,12 @@ const paginationData = reactive({
   pageSize: 10,
 });
 
-const disabled = false;
-
 const tableData = reactive({
   list: [],
   total: 0,
 });
 
+const disabled = false;
 onMounted(() => {
     getListData()
     menuSelectList().then(({ data }) => {
@@ -125,7 +124,6 @@ const getListData = () => {
 
 const handleSizeChange = (val) => {
     paginationData.pageSize = val
-    // pageNum 不强制重置，按你当前交互需求即可；这里保持当前页
     getListData()
 }
 
@@ -136,12 +134,10 @@ const handleCurrentChange = (val) => {
 
 const dialogFormVisible = ref(false)
 const beforeClose = (done) => {
-    // 重置表单
     form.id = ''
     form.mobile = ''
     form.name = ''
     form.permissions_id = ''
-    // 关闭对话框
     dialogFormVisible.value = false
     if (done && typeof done === 'function') {
         done()
@@ -185,7 +181,6 @@ const confirm = async (formEl) => {
 }
 const options = ref([]);
 
-// 根据权限id匹配权限名称
 const permissionName = (permissionId) => {
   const data = options.value.find((el) => el.id === permissionId);
   return data ? data.name : "超级管理员";

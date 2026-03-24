@@ -13,7 +13,6 @@ const routes = [
         path: '/',
         component: Layout,
         name: 'main',
-
         children: [
             {
               path: 'dashboard',
@@ -68,7 +67,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _from) => {
-    if (to.path === '/login') return true
+    const token = localStorage.getItem('pz_token')
+
+    if (!token && to.path !== '/login') {
+        return '/login'
+    } else if (token && to.path === '/login') {
+        return '/'
+    }
 
     const menuStore = useMenuStore()
     if (to.meta && to.meta.path) {

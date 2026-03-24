@@ -20,6 +20,17 @@ export type User = {
   create_time: number;
 };
 
+export type Companion = {
+  id: number;
+  mobile: string;
+  active: number; // 是否生效: 1生效, 0失效
+  age: number;
+  avatar: string;
+  name: string;
+  sex: string; // 性别: 1男, 2女
+  create_time: number;
+};
+
 function flattenPermissions(nodes: PermissionNode[], out: Map<number, string>) {
   for (const n of nodes) {
     out.set(n.id, n.label);
@@ -59,6 +70,7 @@ export const permissionIdToLabel = (() => {
 export const state: {
   roles: Role[];
   users: User[];
+  companions: Companion[];
   smsCodes: Record<string, string>;
 } = {
   roles: [
@@ -93,6 +105,38 @@ export const state: {
       mobile: "13800138002",
       active: 0,
       create_time: 1721982055000,
+    },
+  ],
+  companions: [
+    {
+      id: 1,
+      mobile: "13585254256",
+      active: 1,
+      age: 28,
+      avatar: "http://159.75.169.224:5500/3.jpeg",
+      name: "小王",
+      sex: "2",
+      create_time: Date.now(),
+    },
+    {
+      id: 2,
+      mobile: "13800138001",
+      active: 1,
+      age: 32,
+      avatar: "http://159.75.169.224:5500/4.jpeg",
+      name: "小李",
+      sex: "1",
+      create_time: Date.now() - 86400000,
+    },
+    {
+      id: 3,
+      mobile: "13800138002",
+      active: 0,
+      age: 25,
+      avatar: "http://159.75.169.224:5500/5.jpeg",
+      name: "小张",
+      sex: "2",
+      create_time: Date.now() - 172800000,
     },
   ],
   smsCodes: {},

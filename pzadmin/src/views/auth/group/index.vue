@@ -108,13 +108,10 @@ const getListData = () => {
     })
 }
 
-const size = 'default'
 const disabled = false
-const background = true
 
 const handleSizeChange = (val) => {
     paginationData.pageSize = val
-    // pageNum 不强制重置，按你当前交互需求即可；这里保持当前页
     getListData()
 }
 
@@ -123,14 +120,11 @@ const handleCurrentChange = (val) => {
     getListData()
 }
 
-// 打开弹窗
 const open = (rowData = {}) => {
     dialogFormVisible.value = true
-    // 弹窗打开 form 生成是异步的
     nextTick(() => {
         if (rowData) {
             Object.assign(form, { id: rowData.id, name: rowData.name })
-            // 确保权限管理(id:1)始终被选中
             const permissions = rowData.permission || []
             const finalPermissions = [...new Set([...permissions, 1])]
             treeRef.value.setCheckedKeys(finalPermissions)
@@ -144,20 +138,16 @@ const form = reactive ({
     id: ''
 })
 
-// 树形菜单权限数据
 const permissionData = ref([])
 const dialogFormVisible = ref(false)
 const beforeClose = () => {
     dialogFormVisible.value = false
-    // 重置表单
     formRef.value.resetFields()
-    // tree选择重置
     treeRef.value.setCheckedKeys(defaultKeys)
 }
-const defaultKeys = [1] // 默认选中权限管理
+const defaultKeys = [1]
 const treeRef = ref()
 
-// 判断节点是否禁用：权限管理节点(id:1)不可取消选中
 const isNodeDisabled = (node) => {
     return node.id === 1
 }
@@ -165,7 +155,7 @@ const isNodeDisabled = (node) => {
 const rules = reactive ({
     name: [{ require: true, trigger: 'blur', message: '请输入权限名称' }]
 })
-// 表单提交
+
 const confirm = async (formEl) => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
