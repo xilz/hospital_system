@@ -10,7 +10,11 @@ const DEFAULT_TOKENS = [
 const TOKEN_SET = new Set(DEFAULT_TOKENS);
 
 export function readXToken(event: H3Event): string | undefined {
-  const headerVal = event.node?.req?.headers?.["x-token"];
+  // 优先读取 h-token（H5前端使用），如果没有则读取 x-token
+  let headerVal = event.node?.req?.headers?.["h-token"];
+  if (!headerVal) {
+    headerVal = event.node?.req?.headers?.["x-token"];
+  }
   if (!headerVal) return undefined;
   if (Array.isArray(headerVal)) return headerVal[0];
   return headerVal;
