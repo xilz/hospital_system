@@ -64,3 +64,8 @@ export const companionList = (params) => {
 export const createCompanion = (data) => {
     return request.post('/companion', data)
 }
+
+// 陪护师删除
+export const deleteCompanion = (data) => {
+    return request.post('/delete/companion', data)
+}
