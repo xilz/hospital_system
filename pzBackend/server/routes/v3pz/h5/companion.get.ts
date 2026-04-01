@@ -42,7 +42,8 @@ export default defineEventHandler(async (event) => {
       total: companions.length,
       page,
       pageSize,
-      totalPages: Math.ceil(companions.length / pageSize)
+      totalPages: Math.ceil(companions.length / pageSize),
+      hospitals: state.hospitals.map(h => ({ id: h.id, name: h.name }))
     }
   };
 });

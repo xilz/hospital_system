@@ -227,27 +227,27 @@ export const state: {
   ],
   hospitals: [
     {
-      id: "h001",
+      id: "0",
       name: "北京协和医院",
       address: "北京市东城区东单北大街1号"
     },
     {
-      id: "h002",
+      id: "1",
       name: "北京大学第一医院",
       address: "北京市西城区西什库大街8号"
     },
     {
-      id: "h003",
+      id: "2",
       name: "北京朝阳医院",
       address: "北京市朝阳区工体南路8号"
     },
     {
-      id: "h004",
+      id: "3",
       name: "北京天坛医院",
       address: "北京市丰台区南四环西路119号"
     },
     {
-      id: "h005",
+      id: "4",
       name: "北京安贞医院",
       address: "北京市朝阳区安贞路2号"
     }

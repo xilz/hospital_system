@@ -48,6 +48,7 @@
   <van-row
     v-for="item in homeData.hospitals"
     :key="item.id"
+    @click="goOrder(item)"
     class="center-img yy-list"
     justify="space-around"
   >
@@ -60,12 +61,15 @@
     <van-col class="yy" span="15">
         <div class="yy-name">{{ item.name }}</div>
         <div class="yy-address">{{ item.address }}</div>
+        <div class="yy-intro">{{ item.intro }}</div>
     </van-col>
   </van-row>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance } from "vue";
+import { useRouter } from "vue-router";
+
 const searchValue = ref("");
 // 获取当前vue实例
 const { proxy } = getCurrentInstance();
@@ -81,7 +85,15 @@ const homeData = reactive({
 });
 
 // 快捷入口
-const goOrderTwo = () => {};
+const router = useRouter()
+const goOrderTwo = (index) => {
+  router.push(`/createOrder?id=${homeData.hospitals[index].id}`)
+};
+
+// 点击医院列表
+const goOrder = (data) => {
+  router.push(`/createOrder?id=${data.id}`)
+}
 onMounted(async () => {
   const { data } = await proxy.$api.getHomeData();
   Object.assign(homeData, data.data);
@@ -110,18 +122,24 @@ onMounted(async () => {
 }
 .yy-list {
   padding-bottom: 10px;
-  margin: 20px 0;
+  margin: 10px 0;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.04), 0 1px 6px 0 rgba(0, 0, 0, 0.04);
   .yy {
     .yy-name {
-      font-size: 20px;
+      font-size: 18px;
       line-height: 30px;
       font-weight: bold;
     }
     .yy-address {
-      font-size: 14px;
+      font-weight: bold;
+      line-height: 20px;
+      font-size: 12px;
+      color: #0ca7ae;
+    }
+    .yy-intro {
+      font-size: 13px;
       color: #999999;
     }
   }
@@ -134,8 +152,5 @@ onMounted(async () => {
 .notice-swipe {
   height: 40px;
   line-height: 40px;
-}
-.yy {
-    
 }
 </style>

@@ -71,34 +71,39 @@ export default defineEventHandler(async (event) => {
 
   const hospitals = [
     {
-      id: "h001",
+      id: "0",
       name: "北京协和医院",
       address: "北京市东城区东单北大街1号",
-      image: '/hospic1.png'
+      image: '/hospic1.png',
+      intro: '百年协和，疑难重症诊疗高地，守护生命健康; 医教研并举，铸就医界标杆，守护万家安康'
     },
     {
-      id: "h002",
+      id: "1",
       name: "北京大学第一医院",
       address: "北京市西城区西什库大街8号",
-      image: '/hospic2.png'
+      image: '/hospic2.png',
+      intro: '厚德尚道，水准原点，百年初心护佑民生; 学科雄厚，精研医术，以仁心守护生命安康'
     },
     {
-      id: "h003",
+      id: "2",
       name: "北京朝阳医院",
       address: "北京市朝阳区工体南路8号",
-      image: '/hospic3.png'
+      image: '/hospic3.png',
+      intro: '呼吸危重症救治标杆，急诊急救守护平安; 三甲综合实力强劲，守护百姓呼吸与健康'
     },
     {
-      id: "h004",
+      id: "3",
       name: "北京天坛医院",
       address: "北京市丰台区南四环西路119号",
-      image: '/hospic4.png'
+      image: '/hospic4.png',
+      intro: '亚洲神经外科摇篮，精研脑病守护中枢; 神外领军，医技精湛，为大脑健康保驾护航'
     },
     {
-      id: "h005",
+      id: "4",
       name: "北京安贞医院",
       address: "北京市朝阳区安贞路2号",
-      image: '/hospic5.png'
+      image: '/hospic5.png',
+      intro: '心血管领域标杆，匠心守护心肺健康; 安于心，贞于医，以专业守护生命律动'
     }]
 
   // 返回首页数据
