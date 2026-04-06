@@ -80,16 +80,21 @@ export default defineEventHandler(async (event) => {
     // 保存到mock数据库
     state.orders.push(newOrder);
 
+    // 生成微信支付二维码URL
+    // 微信支付二维码标准格式: weixin://wxpay/bizpayurl?pr=支付请求字符串
+    // 注意：在开发环境中，这只是模拟数据，扫描后会显示"二维码已过期"
+    // 生产环境需要调用微信支付统一下单API获取真实的prepay_id
+    // 模拟微信支付请求字符串，包含订单信息和签名
+    const payRequest = `appid=wx1234567890abcdef&mch_id=1234567890&nonce_str=${Math.random().toString(36).substring(2, 15)}&body=医院陪诊服务订单&out_trade_no=${newOrder.order_no}&total_fee=29900&spbill_create_ip=127.0.0.1&notify_url=https://api.example.com/notify&trade_type=NATIVE&sign=${Math.random().toString(36).substring(2, 17)}`;
+    const wxPayUrl = `weixin://wxpay/bizpayurl?pr=${encodeURIComponent(payRequest)}`;
+
     // 返回成功响应
     return {
       code: 10000,
-      message: '订单创建成功',
+      message: 'success',
       data: {
         order_id: newOrder.id,
-        order_no: newOrder.order_no,
-        create_time: newOrder.create_time,
-        state: newOrder.state,
-        amount: newOrder.amount
+        wx_code: wxPayUrl
       }
     };
   } catch (error) {

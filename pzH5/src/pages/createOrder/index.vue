@@ -113,6 +113,14 @@
         @cancel="showCompanion = false"
       />
     </van-popup>
+
+    <!-- 支付二维码弹窗 -->
+    <van-dialog :show-cofirm-button="false" v-model:show="showCode">
+      <van-icon name="cross" class="close" @click="closeCode" />
+      <div>微信支付</div>
+      <van-image width="150" height="150" :src="codeImg" />
+      <div>请使用微信扫描二维码</div>
+    </van-dialog>
   </div>
 </template>
 
@@ -120,6 +128,7 @@
 import { getCurrentInstance, onMounted, reactive, ref, computed } from "vue";
 import StatusBar from "../../components/statusBar.vue";
 import { useRouter } from "vue-router";
+import Qrcode from 'qrcode'
 
 const { proxy } = getCurrentInstance();
 
@@ -195,8 +204,43 @@ const showCompConfirm = ({ selectedOptions }) => {
   showCompanion.value = false;
 };
 
-const submit = () => {
+// 支付弹窗
+const showCode = ref(false)
+const codeImg = ref('')
+const closeCode = () => {
+  showCode.value = false
+  router.push('/order')
+}
 
+const submit = async () => {
+  const params = [
+    "hospital_id",
+    "hospital_name",
+    "demand",
+    "companion_id",
+    "receiveAddress",
+    "tel",
+    "starttime"
+  ]
+  for (const i of params) {
+    if (!form[i]) {
+      showNotify({ message: '有未填写的内容' });
+      return
+    }
+  }
+  const { data: orderRes } = await proxy.$api.createOrder(form)
+  console.log(orderRes.data.wx_code)
+
+  // 开发环境下直接跳转到订单页面，模拟支付成功
+  if (import.meta.env.MODE === 'development') {
+    showNotify({ type: 'success', message: '订单创建成功' })
+    router.push('/order')
+  } else {
+    Qrcode.toDataURL(orderRes.data.wx_code).then((url) => {
+      showCode.value = true
+      codeImg.value = url
+    })
+  }
 }
 </script>
 
