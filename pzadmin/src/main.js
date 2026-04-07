@@ -38,6 +38,14 @@ app.use(ElementPlus)
 const initPersistedTabs = () => {
     const menuStore = useMenuStore()
 
+    // 检查是否为新会话
+    const sessionKey = 'pzadmin-session-start'
+    if (!sessionStorage.getItem(sessionKey)) {
+        // 新会话，清除之前的标签页状态
+        menuStore.clearAllTabs()
+        sessionStorage.setItem(sessionKey, Date.now().toString())
+    }
+
     const validRoutes = []
     const collectValidRoutes = (routes) => {
         routes.forEach(route => {
