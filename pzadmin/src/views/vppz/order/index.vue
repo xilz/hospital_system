@@ -9,7 +9,7 @@
             <el-form-item prop="out_trade_no">
                 <el-input v-model="searchForm.out_trade_no" placeholder="订单号" />
             </el-form-item>
-            <el-form-item prop="out_trade_no">
+            <el-form-item>
                 <el-button type="primary" @click="onSubmit">查询</el-button>
             </el-form-item>
         </el-form>
@@ -53,7 +53,6 @@
 
 <script setup>
 import { reactive, onMounted } from 'vue';
-import dayjs from 'dayjs';
 import { adminOrder } from '../../../api'
 import PanelHead from '@/components/panelHead.vue';
 
@@ -85,28 +84,41 @@ const searchForm = reactive({
 })
 
 const onSubmit = () => {
+    // 搜索时重置到第一页
+    paginationData.pageNum = 1
     getListData(searchForm)
 }
 
 const getListData = (params = {}) => {
-    adminOrder({...paginationData, ...params}).then(({ data }) => {
+    // 过滤掉空字符串的参数
+    const queryParams = { ...paginationData }
+    Object.keys(params).forEach(key => {
+        if (params[key] !== '') {
+            queryParams[key] = params[key]
+        }
+    })
+
+    console.log('请求参数:', queryParams)
+    adminOrder(queryParams).then(({ data }) => {
         console.log('订单列表响应:', data)
-        const { list, total } = data.data
+        const { list = [], total = 0 } = data.data || {}
         console.log('list:', list)
         console.log('total:', total)
-        list.forEach(item => {
-            item.create_time = dayjs(item.create_time).format('YYYY-MM-DD')
-        });
         tableData.list = list
         tableData.total = total
     }).catch(err => {
         console.error('获取订单列表失败:', err)
+        console.error('错误详情:', err.response || err)
+        // 清空列表
+        tableData.list = []
+        tableData.total = 0
     })
 }
 const statusMap = (key) => {
     const obj = {
         '已取消': 'info',
         '待支付': 'warning',
+        '待服务': 'primary',
         '已完成': 'success'
     }
     return obj[key]
