@@ -33,6 +33,7 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import Counter from '../../components/counter.vue';
 import { ref, onMounted, getCurrentInstance } from 'vue';
 
@@ -86,8 +87,10 @@ const stateMap = {
   4: '已取消'
 };
 
+const router = useRouter()
 // 跳转详情
-const goDetail = () => {
+const goDetail = (item) => {
+    router.push(`/detail?oid=${item.id}`)
 
 }
 </script>
